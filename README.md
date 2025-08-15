@@ -89,6 +89,25 @@ Nuestro trabajo es tratar de minimizar los renders, porque este proceso puede se
 
 El commit es el proceso de aplicar los cambios del Virtual DOM al DOM real. Cuando React detecta un cambio en el estado o las propiedades de un componente, actualiza el Virtual DOM y luego realiza un commit para aplicar esos cambios al DOM real.
 
+## Componentes
+
+Un componente es una función que se encarga de renderizar una parte de la interfaz de usuario. Devuelve un elemento JSX, JSX es una sintaxis que permite escribir HTML dentro de JavaScript, y es transformado por Babel en llamadas a funciones de React.
+
+Un componente debe ser una unidad mínima de lógica posible.
+
+La sintaxis JSX admite interpolación de JavaScript, lo que significa que podemos insertar variables y expresiones dentro del JSX utilizando llaves `{}`. Esto permite crear componentes dinámicos y reutilizables.
+La mejor manera de aplicar CSS es a través de los módulos CSS, que permiten importar archivos CSS y aplicarlos a los componentes de manera modular. Esto evita conflictos de estilos y mejora la mantenibilidad del código.
+
+Es importante tener en cuenta que los componentes deben ser lo más simples y detectar qué lógica le corresponde al padre y qué lógica le corresponde al hijo, y si un componente tiene demasiada lógica, es mejor dividirlo en componentes más pequeños.
+
+Una buena práctica es tener una carpeta `components` donde se almacenen todos los componentes de la aplicación, y dentro de esta carpeta, tener una carpeta por cada componente, y dentro de cada carpeta, tener un archivo `.ts` y su respectivo archivo `.css`. Además, es recomendable tener un archivo `index.ts` dentro de la carpeta `components` que exporte todos los componentes, para facilitar su importación en otros archivos.
+
+Existen dos tipos de componentes en React:
+- **Componente tonto**: Es un componente que no tiene estado y solo se encarga de renderizar la interfaz de usuario. Se define como una función que recibe props y devuelve un elemento JSX.
+- **Componente inteligente**: Es un componente que tiene estado y lógica de negocio. Se define como una clase que extiende de `React.Component` o como una función que utiliza hooks para manejar el estado y los efectos secundarios.
+
+El estado es el lugar donde se almacenan las variables, los métodos y las funciones que se utilizan en un componente, es información que se va a utilizar en varios componentes o rerenders y que condiciona el renderizado de la interfaz de usuario. 
+
 ## Notas extras
 
 ### Errores en la instalación (Bun)
