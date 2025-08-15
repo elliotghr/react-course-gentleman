@@ -1,4 +1,4 @@
-# REACT Course
+# REACT Course - [Gentleman Programming](https://www.youtube.com/watch?v=GMnWXlJnbNo)
 
 ## ¿Cuándo usar React vs un framework?
 
@@ -35,3 +35,107 @@ React es un conjunto de librerías, por eso, conviene usarlo para proyectos que 
   - Routing?
   - Comodo?
   - Contra: No hay trabajo.
+
+## Setup proyecto - Configuración profesional desde día uno
+
+Al ejecutar el comando `bun run build` se generará una carpeta `dist` con el código listo para producción, y una carpeta `src` con el código fuente.
+Este arroja un index.html que es el punto de entrada de la aplicación e importa los archivos de JavaScript generados llamdados bundle, un bundle es un pedazo de código, este código es el resultado de un bundler.
+Un bundler consta de 3 procesos para generar el bundle:
+
+1. **Minificación**: Elimina espacios en blanco, comentarios y otros caracteres innecesarios para reducir el tamaño
+2. **Uglifying**: Renombra variables y funciones para hacer el código más difícil de leer, lo que también ayuda a reducir el tamaño del archivo.
+3. **Tree Shaking**: Elimina el código no utilizado, lo que reduce aún más el tamaño del archivo.
+
+Es una buena práctica tener una estructura de carpetas publica y privada, donde la carpeta publica siempre se envía al cliente (cuando no tenga privilegios de acceso) y la carpeta privada solo se envía al cliente cuando tiene privilegios de acceso. Esto mejorará la seguridad y el rendimiento de la aplicación.
+
+React usa los ESModules (EcmaScript Modules) , que es un sistema de módulos nativo de JavaScript que permite importar y exportar código entre archivos. Esto facilita la organización y reutilización del código a comparación de Vue, que usa un sistema de módulos propio y más complejo.
+
+EcmaScript es un estándar de JavaScript que define cómo debe funcionar el lenguaje. Un organismo de estandarización llamado TC39 es el encargado de definir y actualizar este estándar. Cada año, TC39 lanza una nueva versión de EcmaScript con nuevas características y mejoras.
+
+### Estructura de la aplicación
+
+- vite.config.ts:
+  - Vite es un bundler moderno que utiliza ESModules y ofrece una experiencia de desarrollo rápida y eficiente. Vite utiliza Rollup como bundler para la construcción de producción, lo que garantiza un código optimizado y eficiente. Además de que agrega plugins para mejorar la experiencia de desarrollo, estos se pueden ver en el archivo `vite.config.ts`.
+    Si quisieramos usar un plugin como PWA, testing, etc, solo tendríamos que agregar el plugin en el archivo de configuración.
+- tsconfig.json:
+  - En `tsconfig.json` tenemos configuraciones importantes para controlar la manera en como trabajamos y con el equipo de desarrollo en conjunto.
+- main.tsx:
+  - ¿Por qué en mi archivo main.tsx uso StrictMode?
+    StrictMode controla la manera en como funcionan los componentes, esto lo hace creando un componente, montarlo, desmontarlo y volverlo a montar, y verificará si el estado del componente se mantiene igual a antes de desmontarlo, si no es así, nos avisará que algo anda mal.
+    CreateRoot crea la raíz de la aplicación, y es el punto de entrada de la aplicación. Obtiene el elemento con id "root" del index.html y monta la aplicación en ese elemento, en este caso, el componente App.
+- App.tsx:
+  - Este componente App es el componente principal de la aplicación, y es el que contiene todos los demás componentes. Se exporta y se importa en el main.tsx.
+    Los componentes que se exportan generalmente se hacen con export default, esto permite que se importe el componente sin necesidad de usar llaves y se puede importar con cualquier nombre.
+
+El resultado de main.tsx es generar una SPA
+
+## Detección de cambios
+
+React al usar SPA, necesita un index.html donde indentifica el punto de entrada de la aplicación, y carga el código JavaScript generado por el bundler. Para esto necesitamos un mecanismo que detecte los cambios en el código y los aplique automáticamente en el navegador, esto se logra con un trigger. Un trigger es un evento el cual va a iniciar un proceso de render, por ejemplo, un botón, un cambio de estado, una llamda a una API.
+Tenemos dos tipos de triggers:
+
+- **Inicial**: Cuando la aplicación se carga por primera vez, React monta el componente raíz en el DOM.
+- **Re-render**: Cuando hay un cambio en el estado o las propiedades de un componente, React vuelve a renderizar ese componente y sus hijos.
+
+React utiliza un DOM y un Virtual DOM. El DOM (Document Object Model) es la representación del documento HTML en el navegador y el Virtual DOM que es una representación en memoria del DOM real. Cuando hay un cambio en el estado o las propiedades de un componente, se active un trigger, y React actualiza el Virtual DOM, luego compara este con el DOM real para aplicar solo los cambios necesarios (aplica un render). Un render es ejecutar una función que devuelve un elemento React.
+
+Un componente es una función que va a ser ejecutada y su resultado se renderiza.
+
+Nuestro trabajo es tratar de minimizar los renders, porque este proceso puede ser costoso en términos de rendimiento.
+
+![Componente React](./assets/images/Componente.png)
+
+¿Qué es un commit en React?
+
+El commit es el proceso de aplicar los cambios del Virtual DOM al DOM real. Cuando React detecta un cambio en el estado o las propiedades de un componente, actualiza el Virtual DOM y luego realiza un commit para aplicar esos cambios al DOM real.
+
+## Notas extras
+
+### Errores en la instalación (Bun)
+
+TypeScript no encuentra los tipos de JSX, y eso normalmente pasa cuando:
+
+- No tienes instalados los tipos de React (@types/react y @types/react-dom).
+- Tu tsconfig.json no está configurado para JSX (por ejemplo, falta "jsx": "react-jsx" o "react").
+
+En tu error se ve claramente:
+
+Esta etiqueta JSX requiere que exista la ruta de acceso del módulo "react/jsx-runtime"...
+El elemento JSX tiene el tipo "any" implícitamente porque no existe ninguna interfaz "JSX.IntrinsicElements".
+
+Solución:
+Solución paso a paso
+
+1. Instalar los tipos necesarios
+
+Con Bun, ejecuta:
+
+```bash
+bun add -d @types/react @types/react-dom
+```
+
+(el -d es porque son dependencias de desarrollo)
+
+1. Configurar tsconfig.json
+
+Abre tu tsconfig.json y asegúrate de que tenga algo así:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
+```
+
+Clave: la opción "jsx": "react-jsx" le dice a TS que use la nueva transformación JSX de React 17+.
