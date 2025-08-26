@@ -2,7 +2,7 @@
 
 ## ¿Cuándo usar React vs un framework?
 
-React surge como una alternativa al CSR (Client Side Rendering) tradicional, o tambien llmada SPA, que tiene problemas de SEO y tiempos de carga lentos. React permite construir interfaces de usuario de manera más eficiente y dinámica, mejorando la experiencia del usuario.
+React surge como una alternativa al CSR (Client Side Rendering) tradicional, o tambien llamada SPA, que tiene problemas de SEO y tiempos de carga lentos. React permite construir interfaces de usuario de manera más eficiente y dinámica, mejorando la experiencia del usuario.
 
 React es una librería de JavaScript par generar aplicaciones basadas en componentes reutilizables. A diferencia de los frameworks completos como Angular o Vue, React se enfoca principalmente en la capa de vista (UI) y deja otras responsabilidades, como el manejo del estado y las rutas, a bibliotecas adicionales.
 
@@ -24,7 +24,7 @@ React es un conjunto de librerías, por eso, conviene usarlo para proyectos que 
 - **SolidJS**: Un framework minimalista que se enfoca en la simplicidad y la eficiencia, ideal para proyectos pequeños y medianos.
   - Reactividad Real (signals)
   - Contra: No hay trabajo.
-- **\*Next.js**: Un framework completo que ofrece renderizado del lado del servidor (SSR), generación de sitios estáticos (SSG) y muchas otras características listas para usar, ideal para aplicaciones más grandes y complejas.
+- **Next.js**: Un framework completo que ofrece renderizado del lado del servidor (SSR), generación de sitios estáticos (SSG) y muchas otras características listas para usar, ideal para aplicaciones más grandes y complejas.
   - Necesito SEO?
   - Necesito todo lo que brinda?
   - Contra: Tiene su forma de pensar diferente, sus soluciones son solo SSR y SSG.
@@ -39,7 +39,7 @@ React es un conjunto de librerías, por eso, conviene usarlo para proyectos que 
 ## Setup proyecto - Configuración profesional desde día uno
 
 Al ejecutar el comando `bun run build` se generará una carpeta `dist` con el código listo para producción, y una carpeta `src` con el código fuente.
-Este arroja un index.html que es el punto de entrada de la aplicación e importa los archivos de JavaScript generados llamdados bundle, un bundle es un pedazo de código, este código es el resultado de un bundler.
+Este arroja un index.html que es el punto de entrada de la aplicación e importa los archivos de JavaScript generados llamados bundle, un bundle es un pedazo de código, este código es el resultado de un bundler.
 Un bundler consta de 3 procesos para generar el bundle:
 
 1. **Minificación**: Elimina espacios en blanco, comentarios y otros caracteres innecesarios para reducir el tamaño
@@ -71,7 +71,7 @@ El resultado de main.tsx es generar una SPA
 
 ## Detección de cambios
 
-React al usar SPA, necesita un index.html donde indentifica el punto de entrada de la aplicación, y carga el código JavaScript generado por el bundler. Para esto necesitamos un mecanismo que detecte los cambios en el código y los aplique automáticamente en el navegador, esto se logra con un trigger. Un trigger es un evento el cual va a iniciar un proceso de render, por ejemplo, un botón, un cambio de estado, una llamda a una API.
+React al usar SPA, necesita un index.html donde indentifica el punto de entrada de la aplicación, y carga el código JavaScript generado por el bundler. Para esto necesitamos un mecanismo que detecte los cambios en el código y los aplique automáticamente en el navegador, esto se logra con un trigger. Un trigger es un evento el cual va a iniciar un proceso de render, por ejemplo, un botón, un cambio de estado, una llamada a una API.
 Tenemos dos tipos de triggers:
 
 - **Inicial**: Cuando la aplicación se carga por primera vez, React monta el componente raíz en el DOM.
@@ -100,17 +100,28 @@ La mejor manera de aplicar CSS es a través de los módulos CSS, que permiten im
 
 Es importante tener en cuenta que los componentes deben ser lo más simples y detectar qué lógica le corresponde al padre y qué lógica le corresponde al hijo, y si un componente tiene demasiada lógica, es mejor dividirlo en componentes más pequeños.
 
-Una buena práctica es tener una carpeta `components` donde se almacenen todos los componentes de la aplicación, y dentro de esta carpeta, tener una carpeta por cada componente, y dentro de cada carpeta, tener un archivo `.ts` y su respectivo archivo `.css`. Además, es recomendable tener un archivo `index.ts` dentro de la carpeta `components` que exporte todos los componentes, para facilitar su importación en otros archivos.
+Una buena práctica es tener una carpeta `components` donde se almacenen todos los componentes de la aplicación, y dentro de esta carpeta, tener una carpeta por cada componente, y dentro de cada carpeta, tener un archivo `.ts` y su respectivo archivo `.css`. Además, es recomendable tener un archivo `index.ts` dentro de la carpeta `components` que exporte todos los componentes, para facilitar su importación en otros archivos. A esto se le llama barrel file.
 
 Existen dos tipos de componentes en React:
+
 - **Componente tonto**: Es un componente que no tiene estado y solo se encarga de renderizar la interfaz de usuario. Se define como una función que recibe props y devuelve un elemento JSX.
 - **Componente inteligente**: Es un componente que tiene estado y lógica de negocio. Se define como una clase que extiende de `React.Component` o como una función que utiliza hooks para manejar el estado y los efectos secundarios.
 
-El estado es el lugar donde se almacenan las variables, los métodos y las funciones que se utilizan en un componente, es información que se va a utilizar en varios componentes o rerenders y que condiciona el renderizado de la interfaz de usuario. 
+El estado es el lugar donde se almacenan las variables, los métodos y las funciones que se utilizan en un componente, es información que se va a utilizar en varios componentes o rerenders y que condiciona el renderizado de la interfaz de usuario.
+
+## UseState
+
+El hook `useState` es una función que permite agregar estado a los componentes funcionales. Se importa desde el paquete `react` y se utiliza dentro de un componente para declarar una variable de estado y una función para actualizarla.
+El hook `useState` bindea una variable a un estado, y cada vez que se actualiza el estado, el componente se vuelve a renderizar, además de la función que actualiza el estado, la cual genera un trigger para que React sepa que debe volver a renderizar el componente.
+
+### Batching
+
+React agrupa múltiples actualizaciones de estado en un solo render para mejorar el rendimiento. Esto significa que si se llaman varias veces a la función de actualización del estado dentro de un mismo evento, React solo realizará un render al final del evento, en lugar de uno por cada llamada a la función de actualización del estado.
+Esto es especialmente útil en eventos como clics de botones o envíos de formularios, donde se pueden realizar múltiples actualizaciones de estado en respuesta a una sola acción del usuario.
 
 ## Notas extras
 
-### Errores en la instalación (Bun)
+### Problemas en la instalación (Bun)
 
 TypeScript no encuentra los tipos de JSX, y eso normalmente pasa cuando:
 
