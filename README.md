@@ -119,6 +119,11 @@ El hook `useState` bindea una variable a un estado, y cada vez que se actualiza 
 React agrupa múltiples actualizaciones de estado en un solo render para mejorar el rendimiento. Esto significa que si se llaman varias veces a la función de actualización del estado dentro de un mismo evento, React solo realizará un render al final del evento, en lugar de uno por cada llamada a la función de actualización del estado.
 Esto es especialmente útil en eventos como clics de botones o envíos de formularios, donde se pueden realizar múltiples actualizaciones de estado en respuesta a una sola acción del usuario.
 
+## UseEffect
+El hook `useEffect` es una función que nos va a ayudar a manejar los ciclos de vida de los componentes funcionales. Es un método que ejecuta una función y tiene un array de dependencias, y cada vez que una de las dependencias cambia, se ejecuta la función.
+
+Se utiliza para comunicarnos con entidades externas al componente, como APIs, operaciones asíncronas, parametros de enrtada, etc. También se pueden usar múltiples `useEffect` en un mismo componente para manejar diferentes efectos secundarios.
+
 ## Notas extras
 
 ### Problemas en la instalación (Bun)
