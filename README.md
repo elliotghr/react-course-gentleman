@@ -124,6 +124,12 @@ El hook `useEffect` es una función que nos va a ayudar a manejar los ciclos de 
 
 Se utiliza para comunicarnos con entidades externas al componente, como APIs, operaciones asíncronas, parametros de enrtada, etc. También se pueden usar múltiples `useEffect` en un mismo componente para manejar diferentes efectos secundarios.
 
+En un custom hook siempre se debe usar `useEffect` para manejar los renderizados y los efectos secundarios.
+
+## Custom Hooks
+
+Los custom hooks son funciones que permiten reutilizar lógica de estado y efectos secundarios en diferentes componentes. Se definen como funciones que comienzan con la palabra "use" y pueden utilizar otros hooks dentro de ellas.
+
 ## Notas extras
 
 ### Problemas en la instalación (Bun)
