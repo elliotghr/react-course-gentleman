@@ -1,26 +1,19 @@
 import "./App.css";
-import { useFetch } from "./hooks";
-
-interface Data {
-  name: string;
-  lastName: string;
-  age: number;
-}
-
-const url = "https://jsonplaceholder.typicode.com/users";
+import { Button, ColorRed } from "./components";
 
 function App() {
-  const { data, loading, error } = useFetch<Data>(url);
+  const handleClick = () => console.log("Button clicked");
 
-  if (loading) {
-    return <div className="App">Loading...</div>;
-  }
+  const dimeHola = () => alert("Hola!");
 
-  if (error) {
-    return <div className="App">Error: {error.message}</div>;
-  }
-
-  return <div className="App">{JSON.stringify(data)}</div>;
+  return (
+    <>
+      <ColorRed>
+        <Button parentMethod={dimeHola}>Mi Boton Rojo</Button>
+      </ColorRed>
+      <Button parentMethod={handleClick}>My boton normal</Button>
+    </>
+  );
 }
 
 export default App;

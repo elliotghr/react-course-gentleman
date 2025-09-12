@@ -120,6 +120,7 @@ React agrupa múltiples actualizaciones de estado en un solo render para mejorar
 Esto es especialmente útil en eventos como clics de botones o envíos de formularios, donde se pueden realizar múltiples actualizaciones de estado en respuesta a una sola acción del usuario.
 
 ## UseEffect
+
 El hook `useEffect` es una función que nos va a ayudar a manejar los ciclos de vida de los componentes funcionales. Es un método que ejecuta una función y tiene un array de dependencias, y cada vez que una de las dependencias cambia, se ejecuta la función.
 
 Se utiliza para comunicarnos con entidades externas al componente, como APIs, operaciones asíncronas, parametros de enrtada, etc. También se pueden usar múltiples `useEffect` en un mismo componente para manejar diferentes efectos secundarios.
@@ -129,6 +130,15 @@ En un custom hook siempre se debe usar `useEffect` para manejar los renderizados
 ## Custom Hooks
 
 Los custom hooks son funciones que permiten reutilizar lógica de estado y efectos secundarios en diferentes componentes. Se definen como funciones que comienzan con la palabra "use" y pueden utilizar otros hooks dentro de ellas.
+
+## Composition Pattern - Arquitectura que escala
+
+El patrón de composición es una técnica que permite combinar múltiples componentes para crear uno nuevo. Esto se logra pasando componentes como props a otros componentes, para esto es importante definir bien las acciones y responsabilidades de cada componente. Esto permite crear componentes más complejos y reutilizables, y facilita la mantenibilidad del código.
+Esto lo logramos haciendo uso de `children`, que es una prop especial que permite pasar elementos hijos a un componente. Esto es útil para crear componentes contenedores que pueden envolver otros componentes y aplicarles estilos o comportamientos comunes.
+
+### Condición de carrera
+
+Una condición de carrera ocurre cuando un proceso pide una información antes de que esta esté disponible, y esto puede causar errores en la aplicación. Por ejemplo, si un componente intenta renderizar datos que aún no han sido cargados desde una API, puede resultar en un error o en una interfaz incompleta.
 
 ## Notas extras
 
